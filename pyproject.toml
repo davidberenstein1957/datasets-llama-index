@@ -1,0 +1,47 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "datasets-llama-index"
+description = "Datasets-LlamaIndex Integration"
+readme = "README.md"
+requires-python = "<4.0,>=3.9"
+license = "MIT"
+keywords = ["annotation", "llm", "monitoring"]
+authors = [{ name = "davidberenstein1957", email = "david.m.berenstein@gmail.com" }]
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "llama-index >= 0.10.20, < 1.0",
+    "packaging >= 23.2",
+    "typing-extensions >= 4.3.0",
+    "datasets>=3",
+    "treelib>=1.7.0",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = ["black == 23.10.0", "ruff == 0.1.0", "pre-commit >= 3.5.0"]
+tests = ["pytest >= 7.4.0"]
+
+[project.urls]
+Issues = "https://github.com/argilla-io/datasets-llama-index/issues"
+Source = "https://github.com/argilla-io/datasets-llama-index"
+
+[tool.hatch.version]
+path = "src/datasets_llama_index/__init__.py"
+
+[tool.ruff]
+line-length = 88
+select = ["E", "W", "F", "I", "C", "B"]
+ignore = ["E501", "B905", "B008"]
+exclude = ["docs"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+[tool.pdm]
