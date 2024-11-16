@@ -21,6 +21,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
 
 from huggingface_hub import CommitScheduler
+from llama_index.core.instrumentation import get_dispatcher
 from llama_index.core.instrumentation.event_handlers import BaseEventHandler
 from llama_index.core.instrumentation.events import BaseEvent
 from llama_index.core.instrumentation.events.agent import (
@@ -162,6 +163,11 @@ class DatasetsHandler(SimpleSpanHandler, BaseEventHandler, extra="allow"):
         )
 
         atexit.register(self.scheduler.push_to_hub)
+
+        # register span and event handlers
+        root_dispatcher = get_dispatcher()
+        root_dispatcher.add_span_handler(self)
+        root_dispatcher.add_event_handler(self)
 
     @classmethod
     def class_name(cls) -> str:
